@@ -22,10 +22,51 @@ public class sea_item_manager : MonoBehaviour
     public List<int> list; //빈 스팟 인덱스를 담을 리스트
     public float delay_time; //자원 리젠 시간 
     public Image block_touch;
-    public AudioSource item_creat;
+    public AudioSource item_create;
+
+    // 코인 
+    public Transform[] coin_spot;
+    public GameObject coin;
+    public float coin_time = 10f; // 코인 생성 시간 간격
+
+    // 코인 
+    /*
+    public IEnumerator create_coin()
+    {
+        yield return new WaitWhile(() => block_touch.gameObject.activeSelf); //터치 방지가 활성화되어있는 동안 대기
+        yield return StartCoroutine(wait(4f)); //시작버튼 누른 후로 4초 대기
+
+        //
+        int idx = Random.Range(0, coin_spot.Length); // 코인 스팟들 중에 랜덤으로 하나 선택  
+        Instantiate(coin, coin_spot[idx].position, Quaternion.identity); // 선택된  스팟에 생성하는 코드 
+        //
+
+        while (true)
+        {
+            delay_time = Random.Range((float)(level + 1), (float)(level + 3)); //추가 자원 생성 함수를 호출할 때마다 리젠시간을 현 레벨의 범위 내에서 랜덤하게
+            yield return StartCoroutine(wait(delay_time)); //리젠시간만큼 대기 후 다시 루프 실행
+        }
+
+        IEnumerator wait(float delay) //delay만큼 대기 (WaitForSeconds는 타이머 일시정지가 안돼서 만듦)
+        {
+            float time = 0f;
+            while (time < delay) //wait의 실행시간이 delay가 될때까지
+            {
+                yield return null; //프레임은 변하지 않으면서
+                if (!block_touch.gameObject.activeSelf) //터치 방지가 비활성화 상태여야만
+                {
+                    time += Time.deltaTime; //시간이 가게 함
+                }
+            }
+        }
+    }
+    */
 
     void Start()
     {
+        // 코인
+        //StartCoroutine(create_coin());
+
         sea_item = new sea_item[9];
         sea_item[0] = shell;
         sea_item[1] = seaweed;
@@ -59,31 +100,31 @@ public class sea_item_manager : MonoBehaviour
         //해녀 레벨에 따라 초기 자원 생성 및 추가 자원 생성
         if (level == 1)
         {
-            creat_initial(1);
-            StartCoroutine(creat_plus(1, 1));
+            create_initial(1);
+            StartCoroutine(create_plus(1, 1));
         }
         if (level == 2)
         {
-            creat_initial(1);
-            creat_initial(2);
-            StartCoroutine(creat_plus(2, 1));
-            StartCoroutine(creat_plus(2, 2));
+            create_initial(1);
+            create_initial(2);
+            StartCoroutine(create_plus(2, 1));
+            StartCoroutine(create_plus(2, 2));
         }
         if (level == 3)
         {
-            creat_initial(1);
-            creat_initial(2);
-            creat_initial(3);
-            StartCoroutine(creat_plus(3, 1));
-            StartCoroutine(creat_plus(3, 2));
-            StartCoroutine(creat_plus(3, 3));
+            create_initial(1);
+            create_initial(2);
+            create_initial(3);
+            StartCoroutine(create_plus(3, 1));
+            StartCoroutine(create_plus(3, 2));
+            StartCoroutine(create_plus(3, 3));
         }
 
-        item_creat.volume = PlayerPrefs.GetFloat("item_creat", 1);
+        item_create.volume = PlayerPrefs.GetFloat("item_creat", 1);
     }
 
     //바다의 깊이에 따른 초기 자원 생성 함수
-    public void creat_initial(int sea_num)
+    public void create_initial(int sea_num)
     {
         int num1, num2, num3;
 
@@ -231,14 +272,14 @@ public class sea_item_manager : MonoBehaviour
     }
 
     //바다의 깊이에 따른 추가 자원 생성 함수
-    public void creat_plus_item(int sea_num)
+    public void create_plus_item(int sea_num)
     {
         int num1, num2, num3;
 
         switch (sea_num)
         {
             case 1:
-                num3 = what_to_creat(sea_num); //바다 깊이에 따라 생성할 자원 선택하는 함수 호출
+                num3 = what_to_create(sea_num); //바다 깊이에 따라 생성할 자원 선택하는 함수 호출
 
                 //선택된 자원 num3의 움직임 여부인 num1
                 if (!sea_item[num3].moving) //안움직이는 자원이면
@@ -266,7 +307,7 @@ public class sea_item_manager : MonoBehaviour
                     { num2 = Random.Range(0, sea1_spot[num1].spot.Length); } while (sea1_spot[num1].spot[num2].activeSelf); //빈 스팟 나올 때까지 반복해 뽑은 스팟 인덱스 num2
                     get_values_sea1(num1, num2, num3);
                     sea1_spot[num1].spot[num2].gameObject.SetActive(true);
-                    item_creat.PlayOneShot(item_creat.clip);
+                    item_create.PlayOneShot(item_create.clip);
                 }
                 else //빈 스팟이 없으면
                 {
@@ -276,7 +317,7 @@ public class sea_item_manager : MonoBehaviour
                 break;
 
             case 2:
-                num3 = what_to_creat(sea_num); //바다 깊이에 따라 생성할 자원 선택하는 함수 호출
+                num3 = what_to_create(sea_num); //바다 깊이에 따라 생성할 자원 선택하는 함수 호출
 
                 //선택된 자원 num3의 움직임 여부인 num1
                 if (!sea_item[num3].moving) //안움직이는 자원이면
@@ -304,7 +345,7 @@ public class sea_item_manager : MonoBehaviour
                     { num2 = Random.Range(0, sea2_spot[num1].spot.Length); } while (sea2_spot[num1].spot[num2].activeSelf); //빈 스팟 나올 때까지 반복해 뽑은 스팟 인덱스 num2
                     get_values_sea2(num1, num2, num3);
                     sea2_spot[num1].spot[num2].gameObject.SetActive(true);
-                    item_creat.PlayOneShot(item_creat.clip);
+                    item_create.PlayOneShot(item_create.clip);
                 }
                 else //빈 스팟이 없으면
                 {
@@ -314,7 +355,7 @@ public class sea_item_manager : MonoBehaviour
                 break;
 
             case 3:
-                num3 = what_to_creat(sea_num); //바다 깊이에 따라 생성할 자원 선택하는 함수 호출
+                num3 = what_to_create(sea_num); //바다 깊이에 따라 생성할 자원 선택하는 함수 호출
 
                 //선택된 자원 num3의 움직임 여부인 num1
                 if (!sea_item[num3].moving) //안움직이는 자원이면
@@ -342,7 +383,7 @@ public class sea_item_manager : MonoBehaviour
                     { num2 = Random.Range(0, sea3_spot[num1].spot.Length); } while (sea3_spot[num1].spot[num2].activeSelf); //빈 스팟 나올 때까지 반복해 뽑은 스팟 인덱스 num2
                     get_values_sea3(num1, num2, num3);
                     sea3_spot[num1].spot[num2].gameObject.SetActive(true);
-                    item_creat.PlayOneShot(item_creat.clip);
+                    item_create.PlayOneShot(item_create.clip);
                 }
                 else //빈 스팟이 없으면
                 {
@@ -354,14 +395,14 @@ public class sea_item_manager : MonoBehaviour
     }
 
     //해녀의 레벨과 바다의 깊이에 따라 자원을 추가 생성하는 코루틴
-    public IEnumerator creat_plus(int level, int sea_num)
+    public IEnumerator create_plus(int level, int sea_num)
     {
         yield return new WaitWhile(() => block_touch.gameObject.activeSelf); //터치 방지가 활성화되어있는 동안 대기
         yield return StartCoroutine(wait(4f)); //시작버튼 누른 후로 4초 대기
 
         while (true)
         {
-            creat_plus_item(sea_num); //바다의 깊이에 따라 추가 자원 생성 함수 호출
+            create_plus_item(sea_num); //바다의 깊이에 따라 추가 자원 생성 함수 호출
             delay_time = Random.Range((float)(level + 1), (float)(level + 3)); //추가 자원 생성 함수를 호출할 때마다 리젠시간을 현 레벨의 범위 내에서 랜덤하게
             yield return StartCoroutine(wait(delay_time)); //리젠시간만큼 대기 후 다시 루프 실행
         }
@@ -417,7 +458,7 @@ public class sea_item_manager : MonoBehaviour
     }
 
     //생성확률을 고려해 생성할 자원을 선택하기 
-    public int what_to_creat(int sea_num)
+    public int what_to_create(int sea_num)
     {
         float[] arr_prob = new float[9]; //자원 9개의 생성 확률을 담을 배열 
         for (int i = 0; i < arr_prob.Length; i++) //바다 깊이에 따른 자원 9개의 생성확률을 arr_prob에 담기

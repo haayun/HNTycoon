@@ -66,6 +66,7 @@
      <Compile Include="Assets\Scripts\sea.cs" />
      <Compile Include="Assets\Scripts\sea_camera_manager.cs" />
      <Compile Include="Assets\Scripts\sea_catch.cs" />
+     <Compile Include="Assets\Scripts\sea_coin_spots.cs" />
      <Compile Include="Assets\Scripts\sea_fish.cs" />
      <Compile Include="Assets\Scripts\sea_gagebar.cs" />
      <Compile Include="Assets\Scripts\sea_item.cs" />

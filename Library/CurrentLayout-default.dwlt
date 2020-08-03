@@ -16,8 +16,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 768
     y: 432.80002
-    width: 0.8
-    height: 28.800001
+    width: 0
+    height: 23.2
   m_ShowMode: 0
   m_Title: 
   m_RootView: {fileID: 4}
@@ -63,8 +63,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
-    height: 29
+    width: 0
+    height: 18
   m_MinSize: {x: 0, y: 23}
   m_MaxSize: {x: 4000, y: 4023}
   m_ActualView: {fileID: 15}
@@ -90,8 +90,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
-    height: 29
+    width: 0
+    height: 18
   m_MinSize: {x: 0, y: 23}
   m_MaxSize: {x: 4000, y: 4023}
   vertical: 0
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_MinSize: {x: 678, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 68
+  controlID: 126
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_MinSize: {x: 402, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 69
+  controlID: 103
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_MinSize: {x: 402, y: 221}
   m_MaxSize: {x: 8002, y: 4021}
   vertical: 0
-  controlID: 70
+  controlID: 104
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -372,7 +372,7 @@ MonoBehaviour:
     x: 768
     y: 432.80002
     width: 0
-    height: 6
+    height: 0
   m_ViewDataDictionary: {fileID: 0}
   m_PosLeft: {x: 0, y: 0}
   m_PosRight: {x: 0, y: 38.799988}
@@ -494,7 +494,7 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 502d0000
+      m_SelectedIDs: 
       m_LastClickedID: 0
       m_ExpandedIDs: 7efbffff
       m_RenameOverlay:
@@ -796,7 +796,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000b8380000863f00009e380000c63f0000023b0000f23a0000bc3a0000e2530000e653000000000000da1301000e3b0000066a0000923e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
